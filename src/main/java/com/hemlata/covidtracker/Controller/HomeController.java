@@ -1,19 +1,16 @@
 package com.hemlata.covidtracker.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hemlata.covidtracker.Model.LocationStats;
+import com.hemlata.covidtracker.Model.CovidTotal;
 import com.hemlata.covidtracker.Service.CoronaDataService;
 import com.hemlata.covidtracker.Service.RapidApiService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,15 +19,19 @@ public class HomeController {
 
    CoronaDataService coronaDataService=new CoronaDataService();
     RapidApiService df = new RapidApiService();
+    @GetMapping("restTest")
+    public CovidTotal test() throws URISyntaxException {
+        return df.covidData();
+    }
     @GetMapping("/")
-    public String home(ModelAndView modelAndView) throws IOException, InterruptedException, URISyntaxException {
+    public ModelAndView home(ModelAndView modelAndView) throws IOException, InterruptedException, URISyntaxException {
 
-        String responseJsonString=df.covidData();
+        CovidTotal responseJsonString=df.covidData();
         ObjectMapper mapper = new ObjectMapper();
 
         //parse JSON to display All cases
 
-        Map<String,Object> map=mapper.readValue(responseJsonString, Map[].class)[0];
+        Map<String,Object> map=mapper.readValue(responseJsonString.toString(), Map.class);
         System.out.println("JSON parsed to map");
         String ActiveCases,TotalDeath,TotalCases,TotalRecovered;
         TotalCases= (String) map.get("Total Cases_text");
@@ -43,6 +44,6 @@ public class HomeController {
         modelAndView.addObject("deaths",TotalDeath);
         modelAndView.setViewName("CovidHome");
 
-        return null;
+        return modelAndView;
     }
 }

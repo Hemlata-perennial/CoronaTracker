@@ -1,5 +1,6 @@
 package com.hemlata.covidtracker.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hemlata.covidtracker.Model.LocationStats;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,16 +21,15 @@ import java.util.stream.StreamSupport;
 @Service
 public class CoronaDataService {
 
-
+    RapidApiService rp=new RapidApiService();
     @PostConstruct
     @Scheduled(cron = "* * 1 * * *")    //to uodate data daily
     public String fetchVirusData() throws IOException, InterruptedException, URISyntaxException {
         List<LocationStats> newStats = new ArrayList<>();
-/*
-        //Rest template to fetch data
-		String JsonString=df.covidData();
-		cntryData=cntryData.replace("null","0");
-		Map<String,Object> cntryMap=mapper.readValue(cntryData,Map.class);
+		String JsonString= String.valueOf(rp.CountryData());
+        JsonString=JsonString.replace("null","0");
+        ObjectMapper mapper=new ObjectMapper();
+		Map<String,Object> cntryMap=mapper.readValue(JsonString,Map.class);
 		Map<String, Object> resultmap= (Map<String, Object>) cntryMap.get("data");
 
 		ArrayList<String> data=(ArrayList<String>) resultmap.get("covid19Stats");
@@ -44,15 +44,14 @@ public class CoronaDataService {
 
         for (Object record : records) {
             LocationStats locationStat = new LocationStats();
-            locationStat.setState(record.);
-            locationStat.setCountry((String) resultmap.get("Country"));
-            locationStat.setCc(Integer.parseInt(record.get("Confirmed")));
-            locationStat.setDc(Integer.parseInt(record.get("Deaths")));
-            locationStat.setRc(Integer.parseInt(record.get("Recovered")));
+            locationStat.setState((String) resultmap.get("province"));
+            locationStat.setCountry((String) resultmap.get("country"));
+            locationStat.setCc(Integer.parseInt((String) resultmap.get("confirmed")));
+            locationStat.setDc(Integer.parseInt((String) resultmap.get("deaths")));
+            locationStat.setRc(Integer.parseInt((String) resultmap.get("recovered")));
             newStats.add(locationStat);
         }
-        this.allStats = newStats;
-*/
+
         return null;
     }
 }

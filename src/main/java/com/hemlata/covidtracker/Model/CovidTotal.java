@@ -9,48 +9,49 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CovidTotal {
-    @JsonProperty("confirmed")
-    private String confirmed;
-    @JsonProperty("recovered")
+    @JsonProperty("Total Recovered_text")
     private String recovered;
-    @JsonProperty("critical")
-    private Long critical;
-    @JsonProperty("deaths")
+    @JsonProperty("Total Cases_text")
+    private Long total;
+    @JsonProperty("Active Cases_text")
+    private Long active;
+    @JsonProperty("Total Deaths_text")
     private Long deaths;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    @JsonProperty("confirmed")
-    public String getConfirmed() {
-        return confirmed;
-    }
-    @JsonProperty("confirmed")
-    public void setConfirmed(String confirmed) {
-        this.confirmed = confirmed;
-    }
-    @JsonProperty("recovered")
+    @JsonProperty("Total Recovered_text")
     public String getRecovered() {
         return recovered;
     }
-    @JsonProperty("recovered")
+    @JsonProperty("Total Recovered_text")
     public void setRecovered(String recovered) {
         this.recovered = recovered;
     }
-    @JsonProperty("critical")
-    public Long getCritical() {
-        return critical;
+    @JsonProperty("Total Cases_text")
+    public Long getTotal() {
+        return total;
     }
-    @JsonProperty("critical")
-    public void setCritical(Long critical) {
-        this.critical = critical;
+    @JsonProperty("Total Cases_text")
+    public void setTotal(Long total) {
+        this.total = total;
     }
-    @JsonProperty("deaths")
+    @JsonProperty("Active Cases_text")
+    public Long getActive() {
+        return active;
+    }
+    @JsonProperty("Active Cases_text")
+    public void setActive(Long active) {
+        this.active = active;
+    }
+    @JsonProperty("Total Deaths_text")
     public Long getDeaths() {
         return deaths;
     }
-    @JsonProperty("deaths")
+    @JsonProperty("Total Deaths_text")
     public void setDeaths(Long deaths) {
         this.deaths = deaths;
     }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
