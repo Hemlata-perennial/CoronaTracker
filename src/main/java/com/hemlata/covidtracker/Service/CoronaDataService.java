@@ -47,7 +47,7 @@ public class CoronaDataService {
 
 		//concatinate year, month and day to get desired date
 		datey=Integer.toString(yday);
-		List<String> vallist = Arrays.asList("09",datey,yyear);
+		List<String> vallist = Arrays.asList(ymon,datey,yyear);
 		String ydate = String.join("-",vallist);
 		System.out.println("Yesterday's date = "+ ydate);
 		return ydate;
@@ -82,7 +82,7 @@ public class CoronaDataService {
         StringReader csvBodyReader = new StringReader(httpResponse.body());*/
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity(VIRUS_DATA_URL , String.class);
-        Logger.getLogger(String.valueOf(response.getStatusCode()));
+        System.out.println(response);
 
 /*
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
