@@ -20,18 +20,18 @@ public class HomeController {
    CoronaDataService coronaDataService=new CoronaDataService();
     RapidApiService df = new RapidApiService();
     @GetMapping("restTest")
-    public CovidTotal test() throws URISyntaxException {
+    public String test() throws URISyntaxException {
         return df.covidData();
     }
     @GetMapping("/")
     public ModelAndView home(ModelAndView modelAndView) throws IOException, InterruptedException, URISyntaxException {
 
-        CovidTotal responseJsonString=df.covidData();
+        String responseJsonString=df.covidData();
         ObjectMapper mapper = new ObjectMapper();
 
         //parse JSON to display All cases
-
-        Map<String,Object> map=mapper.readValue(responseJsonString.toString(), Map.class);
+        CovidTotal ct = new CovidTotal();
+        Map<String,Object> map= ct.getAdditionalProperties();
         System.out.println("JSON parsed to map");
         String ActiveCases,TotalDeath,TotalCases,TotalRecovered;
         TotalCases= (String) map.get("Total Cases_text");
@@ -42,6 +42,7 @@ public class HomeController {
         modelAndView.addObject("active",ActiveCases);
         modelAndView.addObject("recovered",TotalRecovered);
         modelAndView.addObject("deaths",TotalDeath);
+        modelAndView.addObject("cntry",coronaDataService.fetchVirusData());
         modelAndView.setViewName("CovidHome");
 
         return modelAndView;

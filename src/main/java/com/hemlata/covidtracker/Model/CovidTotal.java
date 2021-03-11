@@ -12,11 +12,11 @@ public class CovidTotal {
     @JsonProperty("Total Recovered_text")
     private String recovered;
     @JsonProperty("Total Cases_text")
-    private Long total;
+    private String total;
     @JsonProperty("Active Cases_text")
-    private Long active;
+    private String active;
     @JsonProperty("Total Deaths_text")
-    private Long deaths;
+    private String deaths;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     @JsonProperty("Total Recovered_text")
@@ -28,30 +28,29 @@ public class CovidTotal {
         this.recovered = recovered;
     }
     @JsonProperty("Total Cases_text")
-    public Long getTotal() {
+    public String getTotal() {
         return total;
     }
     @JsonProperty("Total Cases_text")
-    public void setTotal(Long total) {
+    public void setTotal(String total) {
         this.total = total;
     }
     @JsonProperty("Active Cases_text")
-    public Long getActive() {
+    public String getActive() {
         return active;
     }
     @JsonProperty("Active Cases_text")
-    public void setActive(Long active) {
+    public void setActive(String active) {
         this.active = active;
     }
     @JsonProperty("Total Deaths_text")
-    public Long getDeaths() {
+    public String getDeaths() {
         return deaths;
     }
     @JsonProperty("Total Deaths_text")
-    public void setDeaths(Long deaths) {
+    public void setDeaths(String deaths) {
         this.deaths = deaths;
     }
-
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;

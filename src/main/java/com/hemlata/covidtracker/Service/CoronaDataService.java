@@ -2,29 +2,22 @@ package com.hemlata.covidtracker.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hemlata.covidtracker.Model.LocationStats;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@Service
 public class CoronaDataService {
 
     RapidApiService rp=new RapidApiService();
     @PostConstruct
     @Scheduled(cron = "* * 1 * * *")    //to uodate data daily
-    public String fetchVirusData() throws IOException, InterruptedException, URISyntaxException {
+    public Iterable<Object> fetchVirusData() throws IOException, InterruptedException, URISyntaxException {
         List<LocationStats> newStats = new ArrayList<>();
 		String JsonString= String.valueOf(rp.CountryData());
         JsonString=JsonString.replace("null","0");
@@ -52,6 +45,6 @@ public class CoronaDataService {
             newStats.add(locationStat);
         }
 
-        return null;
+        return records;
     }
 }
